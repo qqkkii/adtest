@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="juicyads-site-verification" content="e9804ceaf56bace99ef7990bff5fc7fb">
+  <title>萝莉岛</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body:after {
+      display: none;
+      content: 'desktop';
+    }
+
+    @media (max-width: 767px) {
+      body:after {
+        content: 'mobile';
+      }
+    }
+
+    .download-btn {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100px;
+      background-color: #0066cc;
+      color: white;
+      font-size: 2em;
+      border: none;
+      cursor: pointer;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .image-container {
+      position: fixed;
+      top: 100px;
+      bottom: 0;
+      width: 100vw;
+    }
+
+    @media (min-width: 768px) {
+      .pc-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+
+      .pc-overlay {
+        top: 20px;
+        left: 20px;
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .mobile-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+      }
+
+      .mobile-logo {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+        width: 120px;
+        z-index: 2;
+      }
+    }
+
+    .scrolling-text {
+      position: absolute;
+      top: 105px;
+      width: 100vw;
+      font-size: 16px;
+      overflow: hidden;
+      white-space: nowrap;
+      color: white;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: 10;
+    }
+
+    .marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 18s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(20%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    #overlay {
+      position: fixed;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 15;
+    }
+    .popup {
+      background-color: #ffffff;
+      max-width: 400px;
+      min-width: 200px;
+      height: 100px;
+      border-radius: 5px;
+      margin: 100px auto;
+      text-align: center;
+    }
+    .popup_content {
+      height: 30px;
+      line-height: 30px;
+      padding: 15px 15px 0px 15px;
+      text-align: center;
+      color: red;
+    }
+    .popup_btn {
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+    .popup_btn button {
+      color: #778899;
+      width: 40%;
+      height: 40px;
+      cursor: pointer;
+      border: solid 1px #cccccc;
+      border-radius: 5px;
+      margin: 5px 10px;
+      color: #ffffff;
+      background-color: #337ab7;
+    }
+  </style>
+</head>
+
+<body>
+  <button class="download-btn" onclick="copyToClipboard()">点击下载！！</button>
+
+  <div class="scrolling-text">
+    <div class="marquee">✅ 因为 萝莉岛APP 含有成人内容，近期被杀毒软件提示为恶意软件，但我们有广告等正当收益，不会放任何恶意程序，请安心使用</div>
+  </div>
+
+  <div class="image-container">
+    <div class="pc-content">
+      <img src="./imgs/pcbg1.webp" class="pc-layer">
+      <img src="./imgs/pcbg.webp" class="pc-layer pc-overlay">
+    </div>
+
+    <div class="mobile-content">
+      <img src="./imgs/mbg.webp" class="mobile-layer">
+      <img src="./imgs/logo.webp" class="mobile-logo">
+    </div>
+
+    <div id="overlay">
+      <div class="popup">
+        <p class="popup_content">地址已复制，请打开系统浏览器进行下载</p>
+        <div class="popup_btn">
+          <button class="confirmBtn" onclick="hidePopup()">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function detectDevice() {
+      const userAgent = navigator.userAgent;
+      const isMobile = /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS/i.test(userAgent);
+
+      if (isMobile) {
+        document.querySelector('.pc-content').style.display = 'none';
+        document.querySelector('.mobile-content').style.display = 'block';
+      } else {
+        document.querySelector('.pc-content').style.display = 'block';
+        document.querySelector('.mobile-content').style.display = 'none';
+      }
+    }
+
+    function copyToClipboard() {
+      const text = 'https://1o85.com';
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          let overlay = document.getElementById('overlay');
+          overlay.style.display = 'block';
+        })
+        .catch(err => console.error('复制失败:', err));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      detectDevice();
+      window.addEventListener('resize', detectDevice);
+    });
+
+    window.addEventListener("orientationchange", () => {
+      if (window.orientation % 180 === 0) {
+        location.reload();
+      }
+    }, false);
+
+    function hidePopup() {
+      let overlay = document.getElementById('overlay');
+      overlay.style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>
